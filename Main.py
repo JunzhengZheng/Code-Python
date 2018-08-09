@@ -22,6 +22,7 @@ import copy
 #Swift = ArmSwift.uArmSwift()
 #initX, initY, initZ = Swift.get_position()
 
+#Kinematics.Camera2Arm(Cx, Cy, Cz)
 
 Angle = [0,0,0]
 PositionStart = [250, 200, 30]

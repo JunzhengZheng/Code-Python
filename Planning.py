@@ -33,6 +33,15 @@ class pid:
         
         self.errorPre = error
         return Control
+
+def RotateObj(deltaAngle, swift):
+    swift.set_wrist(90,True)
+    swift.set_pump(True)
+    swift.set_wrist((90+deltaAngle)%180)
+    swift.set_pump(False)
+    swift.set_wrist(90)
+
+    
     
 def StrightPath(Position1 = [200, 100, 0], Position2 = [200, -100, 0], Height = 120):
     Path = [[Position1[0],Position1[1],Height ]]
@@ -78,11 +87,11 @@ def BezierPath(Position1 = [150, 100, 0], Position2 = [250, -150, 0], ControlPoi
         for  j in range(tlen):
             PathNew[j][i] = ynew[j]
     
-    return (PathNew)
+    return PathNew
  
 
 def GenControlPoint(obj1=None,obj2=None, obst=None):
-    ControlPoint = []
+    ControlPoint = [[0,0,0],[0,0,0]]
     eps = 0.0001
     L0,W0,H0 = obst.L,obst.W,obst.H
     L1,W1,H1 = obj1.L,obj1.W,obj1.H
@@ -94,7 +103,7 @@ def GenControlPoint(obj1=None,obj2=None, obst=None):
     x2,y2,z2 = Position2
     
 
-    if obst.H+obj1.H < 140:
+    if obst.H+obj1.H < 120:
     
         k1 = -(y1-y2)/(x1-x2+eps)
         b1 = -(y1+k1*x1)
@@ -121,14 +130,21 @@ def GenControlPoint(obj1=None,obj2=None, obst=None):
         
         dx = x2-x1
         dy = y2-y1
-        ControlPoint = [[0,0,0],[0,0,0]]
+        
         ControlPoint[0] = [x1+dx*con1, y1+dy*con1, H0+H1+10]
         ControlPoint[1] = [x1+dx*con2, y1+dy*con2, H0+H1+10]
         
-        deltaAngle = (obst.Angle-obj1.Angle)%180
+        deltaAngle = obst.Angle-obj1.Angle
         
-    elif math.sqrt(x0**2 + y0**2)>150:
-        pass
+    elif x0>150:
+        deltaAngle = 90+obj1.Angle
+        diag = math.sqrt(L0**2+W0**2)
+        ControlPoint[0] = [x0-W1/2-diag/2-5, y1, H1+10]
+        ControlPoint[1] = [x0-W1/2-diag/2-5, y2, H1+10]
+        
+    else: 
+        print("Hard Solve")
+        
     
     
     return ControlPoint, deltaAngle

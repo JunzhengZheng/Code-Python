@@ -20,7 +20,7 @@ import Structure
 import copy
 
 
-Swift = ArmSwift.uArmSwift()
+#Swift = ArmSwift.uArmSwift()
 #initX, initY, initZ = Swift.get_position()
 
 
@@ -49,7 +49,7 @@ path = Planning.BezierPath(PositionStart, PositionEnd, ControlPoint)
 flag = Planning.CheckPath(path)
 print(path)
 
-Swift.set_position(x=X,y=Y,z=Z,wait=True)
+#Swift.set_position(x=X,y=Y,z=Z,wait=True)
 t1 = time.time()
 if flag:
     for i in range(len(path)):
@@ -60,10 +60,11 @@ if flag:
         
         X,Y,Z = Position   
         #Swift.set_pump(True)
-        Swift.set_position(x=X,y=Y,z=Z)
-        
-        BaseAngle = Swift.get_servo_angle(0)
-        Swift.set_wrist(deltaAngle+90-BaseAngle)
+        #Swift.set_position(x=X,y=Y,z=Z)        
+        #BaseAngle = Swift.get_servo_angle(0)
+        #Swift.set_wrist((deltaAngle+90-BaseAngle)%180)
+        #time.sleep(0.2)
+        #print((deltaAngle+90-BaseAngle)%180)
         
         Angle[0],Angle[1],Angle[2] = Kinematics.XYZ2Angle(X,Y,Z)
                 
@@ -73,13 +74,14 @@ if flag:
 
 t2 = time.time()
 print(t2-t1)
+'''
 while Swift.is_moving():
     pass
 time.sleep(0.5)
 Swift.set_pump(False)    
 Swift.disconnect()          
 
-'''
+
 for i in range(3):
         PositionError[i] = PositionEnd[i]-Position[i]
     Control = ControlPID.update(PositionError)

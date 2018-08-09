@@ -23,7 +23,11 @@ class uArmSwift:
         
         self.swift.set_mode(0)
         
-        self.speed = 5000000
+        self.speed = 500000
+        
+        self.swift.set_wrist(angle=90)
+        
+        self.wristAngle = self.swift.get_servo_angle(0, timeout=10)
     
     def set_position(self, x=100, y=0, z=100, wait=False):
         self.swift.set_position(x, y, z, speed=self.speed, wait=wait)
@@ -49,7 +53,7 @@ class uArmSwift:
         return self.swift.get_position()
     
     def get_servo_angle(self,id=0):
-        return self.swift.get_servo_angle(id)
+        return self.swift.get_servo_angle(id, timeout=10)
         
     def is_moving(self):
         return self.swift.get_is_moving()

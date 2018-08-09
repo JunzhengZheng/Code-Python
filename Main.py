@@ -19,25 +19,16 @@ import Structure
 import copy
 
 
-Swift = ArmSwift.uArmSwift()
+#Swift = ArmSwift.uArmSwift()
 #initX, initY, initZ = Swift.get_position()
 
-AnglePre = [30, 60, 60]
-AngleEnd = [-40, 30, 90]
-Angle = AnglePre
-AngleError = [0,0,0]
-AngleSat = [0,0,0]
-AngleR = [0 ,0 ,0]
+
+Angle = [0,0,0]
 
 PositionStart = [250, 100, 30]
 PositionEnd = [200, -150, 30]
 Position = PositionStart
-PositionError = [0,0,0]
 X,Y,Z = Position
-
-MaxAngle = 10
-MaxSpeed = 10
-MotorSpeed = [0, 0, 0]
 
 
 Angle[0],Angle[1],Angle[2] = Kinematics.XYZ2Angle(X,Y,Z)
@@ -65,23 +56,22 @@ if flag:
             Position = list(path[i])
         
         X,Y,Z = Position   
-        Swift.set_pump(True)
-        Swift.set_position(X,Y,Z)
-        Swift.set_wrist(90+deltaAngle)
+        #Swift.set_pump(True)
+        #Swift.set_position(X,Y,Z)
+        #Swift.set_wrist(90+deltaAngle)
 
         Angle[0],Angle[1],Angle[2] = Kinematics.XYZ2Angle(X,Y,Z)
                 
         #print(Angle)
         uArm = Build_uArm.BuildArm(Angle[0],Angle[1],Angle[2])
         ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle = obst)
-
+'''
 while Swift.is_moving():
     pass
 time.sleep(0.5)
 Swift.set_pump(False)    
 Swift.disconnect()          
 
-'''
 
 for i in range(3):
         PositionError[i] = PositionEnd[i]-Position[i]

@@ -5,7 +5,6 @@ Created on Tue Jul 31 15:52:52 2018
 @author: kk
 """
 
-
 import Kinematics
 import Build_uArm
 from Visualization import ShowState
@@ -25,7 +24,6 @@ import copy
 
 
 Angle = [0,0,0]
-
 PositionStart = [250, 200, 30]
 PositionEnd = [200, -150, 30]
 Position = PositionStart
@@ -60,7 +58,7 @@ if flag:
         
         X,Y,Z = Position   
         #Swift.set_pump(True)
-        #Swift.set_position(x=X,y=Y,z=Z)        
+        #Swift.set_position(x=X,y=Y,z=Z)
         #BaseAngle = Swift.get_servo_angle(0)
         #Swift.set_wrist((deltaAngle+90-BaseAngle)%180)
         #time.sleep(0.2)

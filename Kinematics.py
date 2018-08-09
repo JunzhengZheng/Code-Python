@@ -50,3 +50,15 @@ def XYZ2Angle(X = 0, Y=0, Z=0):
 
     return Angle1, Angle2, Angle3
     
+
+def Camera2Arm(Cx,Cy,Cz):
+    theta = 0
+    k = 1
+    deltaX, deltaY, deltaZ = 0,0,0
+    
+    Cx, Cy, Cz = Cx*k, Cy*k, Cz
+    Ax = Cx*math.cos(theta) - Cy*math.sin(theta) + deltaX
+    Ay = Cx*math.sin(theta) + Cy*math.cos(theta) + deltaY
+    Az = deltaZ - Cz
+
+    return Ax,Ay,Az

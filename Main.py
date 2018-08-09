@@ -94,8 +94,6 @@ while Swift.is_moving():
     
     #plt.savefig("Figure/1.png")
 
-
-
     AngleError[i] = AngleEnd[i] - Angle[i]
     MaxFlag = AngleError[i] >= MaxAngle
     MinFlag = AngleError[i] <= -MaxAngle

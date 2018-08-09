@@ -91,7 +91,13 @@ def BezierPath(Position1 = [150, 100, 0], Position2 = [250, -150, 0], ControlPoi
  
 
 def GenControlPoint(obj1=None,obj2=None, obst=None):
+    
     ControlPoint = [[0,0,0],[0,0,0]]
+    if obst == None:
+        ControlPoint[0] = [obj1.Center[0], obst.Center[1], obj1.H+10]
+        ControlPoint[1] = [obj2.Center[0], obj2.Center[1], obj2.H+10]
+        return ControlPoint, 0
+        
     eps = 0.0001
     L0,W0,H0 = obst.L,obst.W,obst.H
     L1,W1,H1 = obj1.L,obj1.W,obj1.H

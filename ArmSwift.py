@@ -23,33 +23,33 @@ class uArmSwift:
         
         self.swift.set_mode(0)
         
-        self.speed = 500000
+        self.speed = 5000000
     
-    def set_position(self, x=100, y=0, z=100):
-        self.swift.set_position(x, y, z, speed=self.speed)
+    def set_position(self, x=100, y=0, z=100, wait=False):
+        self.swift.set_position(x, y, z, speed=self.speed, wait=wait)
         
-    def set_polar(self, stretch, rotation, height):
-        self.swift.set_polar(stretch=200, rotation=90, height=150, speed=self.speed)
+    def set_polar(self, stretch, rotation, height, wait=False):
+        self.swift.set_polar(stretch, rotation, height, speed=self.speed, wait=wait)
         
-    def set_servo_angle(self, num, angle):
+    def set_servo_angle(self, num, angle, wait=False):
         if num<0 and num>3:
             print("num is wrong")
-        self.swift.set_servo_angle(num, angle, speed=self.speed)
+        self.swift.set_servo_angle(num, angle, wait, speed=self.speed, wait=wait)
         
-    def set_wrist(self, angle = 90):  # 第四电机
-        self.swift.set_wrist(angle)
+    def set_wrist(self, angle = 90, wait=False):  # 第四电机
+        self.swift.set_wrist(angle,wait)
         
     def set_pump(self, on = False):
         self.swift.set_pump(on)
         
-    def set_buzzer(self, freq, duration):
-        self.swift.set_buzzer(freq = 1000, duration = 1)
+    def set_buzzer(self, freq = 1000, duration = 1, wait=False):
+        self.swift.set_buzzer(freq, duration, wait)
         
     def get_position(self):
         return self.swift.get_position()
     
-    def get_servo_angle(self):
-        return self.swift.get_servo_angle()
+    def get_servo_angle(self,id=0):
+        return self.swift.get_servo_angle(id)
         
     def is_moving(self):
         return self.swift.get_is_moving()

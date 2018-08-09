@@ -60,7 +60,7 @@ def BezierPath(Position1 = [150, 100, 0], Position2 = [250, -150, 0], ControlPoi
         t[i] = np.array(cumdis[i]/cumdis[l-1])
     #print(t)
     
-    step = 1/12
+    step = 1/10
     tnew = np.arange(0,1+step,step)
     tlen = len(tnew)
     PathNew = np.zeros([tlen,3])
@@ -93,36 +93,42 @@ def GenControlPoint(obj1=None,obj2=None, obst=None):
     x1,y1,z1 = Position1
     x2,y2,z2 = Position2
     
-    k1 = -(y1-y2)/(x1-x2+eps)
-    b1 = -(y1+k1*x1)
+
+    if obst.H+obj1.H < 140:
     
-    k2 = -1/k1    
-    b2 = -(y1+k2*x1)    
-    
-    dist1 = abs(y2+k2*x2+b2)/math.sqrt(1+k2**2)
-    dist2 = abs(y0+k2*x0+b2)/math.sqrt(1+k2**2)
-    
-    theta = (math.atan(-k1)-obst.Angle/180*math.pi)%(math.pi/2)
-    if theta > math.atan(W0/L0) and theta < math.pi/2:
-        dist3 = W0/2/math.sin(theta)
-    elif theta >0:
-        dist3 = L0/2/math.sin(math.pi/2-theta)
-    else:
-        print('ERROR')
-    
-    dist4 = (W0+W1)/W0 * dist3
-    
-    con1 = (dist2-dist4)/dist1
-    con2 = (dist2+dist4)/dist1
-    print([con1, con2])
-    
-    dx = x2-x1
-    dy = y2-y1
-    ControlPoint = [[0,0,0],[0,0,0]]
-    ControlPoint[0] = [x1+dx*con1, y1+dy*con1, H0+H1+10]
-    ControlPoint[1] = [x1+dx*con2, y1+dy*con2, H0+H1+10]
-    
-    deltaAngle = (obst.Angle-obj1.Angle+90)%180-90
+        k1 = -(y1-y2)/(x1-x2+eps)
+        b1 = -(y1+k1*x1)
+        
+        k2 = -1/k1    
+        b2 = -(y1+k2*x1)    
+        
+        dist1 = abs(y2+k2*x2+b2)/math.sqrt(1+k2**2)
+        dist2 = abs(y0+k2*x0+b2)/math.sqrt(1+k2**2)
+        
+        theta = (math.atan(-k1)-obst.Angle/180*math.pi)%(math.pi/2)
+        if theta > math.atan(W0/L0) and theta < math.pi/2:
+            dist3 = W0/2/math.sin(theta)
+        elif theta >0:
+            dist3 = L0/2/math.sin(math.pi/2-theta)
+        else:
+            print('ERROR')
+        
+        dist4 = (W0+W1)/W0 * dist3
+        
+        con1 = (dist2-dist4)/dist1
+        con2 = (dist2+dist4)/dist1
+        print([con1, con2])
+        
+        dx = x2-x1
+        dy = y2-y1
+        ControlPoint = [[0,0,0],[0,0,0]]
+        ControlPoint[0] = [x1+dx*con1, y1+dy*con1, H0+H1+10]
+        ControlPoint[1] = [x1+dx*con2, y1+dy*con2, H0+H1+10]
+        
+        deltaAngle = (obst.Angle-obj1.Angle)%180
+        
+    elif math.sqrt(x0**2 + y0**2)>150:
+        pass
     
     
     return ControlPoint, deltaAngle

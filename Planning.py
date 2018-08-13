@@ -41,6 +41,31 @@ def RotateObj(deltaAngle, swift):
     swift.set_pump(False)
     swift.set_wrist(90)
 
+class Action():
+    def __init__(self):
+        self.Position1 = [200,100,0]
+        self.Position2 = [200,-100,0]
+        self.Angle1 = 0
+        self.Angle2 = 0
+        self.Height = 100
+        
+    def move(self, Swift):
+        x,y,z = Swift.get_position
+        Swift.set_position(x,y,self.Height) # 初始位置抬升
+        Swift.set_wrist(90)
+        x,y,z = self.Position1
+        Swift.set_position(x,y,self.Height) # 移动到起始位置正上方
+        Swift.set_position(x,y,z-2) # 移动到物体上表面
+        Swift.set_pump(True)
+        Swift.set_position(x,y,self.Height) # 抬升物体
+        x,y,z = self.Position2
+        Swift.set_position(x,y,self.Height) # 移动到目标点正上方
+        Swift.set_wrist((self.Angle2-self.Angle1+90)%180) # 转动到目标角度
+        Swift.set_position(x,y,z-2) # 移动到指定位置
+        Swift.set_pump(False)
+        Swift.set_position(x,y,z+10) # 离开物体上表面
+        
+        
     
     
 def StrightPath(Position1 = [200, 100, 0], Position2 = [200, -100, 0], Height = 120):

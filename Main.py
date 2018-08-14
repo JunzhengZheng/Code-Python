@@ -25,8 +25,8 @@ import copy
 #Kinematics.Camera2Arm(Cx, Cy, Cz)
 
 Angle = [0,0,0]
-PositionStart = [250, 200, 30]
-PositionEnd = [200, -150, 30]
+PositionStart = [250, 200, 10]
+PositionEnd = [200, -150, 10]
 Position = PositionStart
 X,Y,Z = Position
 
@@ -37,7 +37,7 @@ objStart = Structure.Obstacle(Center = PositionStart[0:2], Angle = 0, Size = [40
 objEnd = copy.deepcopy(objStart)
 objEnd.Center = PositionEnd[0:2]
 objEnd.H = PositionEnd[2]
-obst = Structure.Obstacle(Center = [200,0], Angle = -45, Size = [80, 40, 50], Type = 'cuboid')
+obst = Structure.Obstacle(Center = [200,0], Angle = -45, Size = [80, 40, 60], Type = 'cuboid')
 ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle = obst)
 
 ControlPoint, deltaAngle = Planning.GenControlPoint(obj1=objStart,obj2=objEnd,obst=obst)

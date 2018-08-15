@@ -56,7 +56,7 @@ def plot_linear_cube(x, y, z, dx, dy, dz, color='blue'):
     
     
 
-def ShowState(Base,Target=None,ShowAxes=True,xlim=[-500,500],ylim=[-500,500],Height=500,obstacle=None): 
+def ShowState(Base,Target=None,ShowAxes=True,xlim=[-500,500],ylim=[-500,500],Height=500,obstacle1=None, obstacle2 = None, obstacle3 = None, obstacle4 = None): 
     fig = plt.figure()
     ax=fig.add_subplot(111,projection="3d")
     plt.xlim(xlim)
@@ -84,36 +84,40 @@ def ShowState(Base,Target=None,ShowAxes=True,xlim=[-500,500],ylim=[-500,500],Hei
         else:
             Now=Now.Next
             
-    if obstacle.Type == 'cuboid':
-        alpha = obstacle.Angle/180*math.pi
-        L,W = obstacle.L, obstacle.W
-        x0 = obstacle.Center[0]
-        y0 = obstacle.Center[1]
-        x1 = x0-L/2*math.cos(alpha) + W/2*math.sin(alpha)
-        y1 = y0-W/2*math.cos(alpha) - L/2*math.sin(alpha)
-        x2 = x1+L*math.cos(alpha)
-        y2 = y1+L*math.sin(alpha)
-        x3 = 2*x0-x1
-        y3 = 2*y0-y1
-        x4 = x1-W*math.sin(alpha)
-        y4 = y1+W*math.cos(alpha)
-        
-        z0 = 0
-
-        dz = obstacle.H
-        color = obstacle.Color
-        xx = [x1, x2, x3, x4, x1]
-        yy = [y1, y2, y3, y4, y1]
-        kwargs = {'alpha': 1, 'color': color}
-        ax.plot3D(xx, yy, [z0]*5, **kwargs)
-        ax.plot3D(xx, yy, [z0+dz]*5, **kwargs)
-        ax.plot3D([x1, x1], [y1, y1], [z0, z0+dz], **kwargs)
-        ax.plot3D([x2, x2], [y2, y2], [z0, z0+dz], **kwargs)
-        ax.plot3D([x3, x3], [y3, y3], [z0, z0+dz], **kwargs)
-        ax.plot3D([x4, x4], [y4, y4], [z0, z0+dz], **kwargs)
-    elif obstacle.Type == 'cylinder':
-        
-        pass
+    for num in range(4):
+        obstacle = eval('obstacle'+str(num+1)) 
+        if obstacle == None:
+            break
+        elif obstacle.Type == 'cuboid':
+            alpha = obstacle.Angle/180*math.pi
+            L,W = obstacle.L, obstacle.W
+            x0 = obstacle.Center[0]
+            y0 = obstacle.Center[1]
+            x1 = x0-L/2*math.cos(alpha) + W/2*math.sin(alpha)
+            y1 = y0-W/2*math.cos(alpha) - L/2*math.sin(alpha)
+            x2 = x1+L*math.cos(alpha)
+            y2 = y1+L*math.sin(alpha)
+            x3 = 2*x0-x1
+            y3 = 2*y0-y1
+            x4 = x1-W*math.sin(alpha)
+            y4 = y1+W*math.cos(alpha)
+            
+            z0 = 0
+    
+            dz = obstacle.H
+            color = obstacle.Color
+            xx = [x1, x2, x3, x4, x1]
+            yy = [y1, y2, y3, y4, y1]
+            kwargs = {'alpha': 1, 'color': color}
+            ax.plot3D(xx, yy, [z0]*5, **kwargs)
+            ax.plot3D(xx, yy, [z0+dz]*5, **kwargs)
+            ax.plot3D([x1, x1], [y1, y1], [z0, z0+dz], **kwargs)
+            ax.plot3D([x2, x2], [y2, y2], [z0, z0+dz], **kwargs)
+            ax.plot3D([x3, x3], [y3, y3], [z0, z0+dz], **kwargs)
+            ax.plot3D([x4, x4], [y4, y4], [z0, z0+dz], **kwargs)
+        elif obstacle.Type == 'cylinder':
+            
+            pass
     
             
             

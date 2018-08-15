@@ -26,7 +26,7 @@ import copy
 
 Angle = [0,0,0]
 PositionStart = [250, 200, 10]
-PositionEnd = [200, -150, 10]
+PositionEnd = [200, -200, 10]
 Position = PositionStart
 X,Y,Z = Position
 
@@ -37,14 +37,15 @@ objStart = Structure.Obstacle(Center = PositionStart[0:2], Angle = 0, Size = [40
 objEnd = copy.deepcopy(objStart)
 objEnd.Center = PositionEnd[0:2]
 objEnd.H = PositionEnd[2]
-obst = Structure.Obstacle(Center = [200,0], Angle = -45, Size = [80, 40, 60], Type = 'cuboid')
-ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle = obst)
+obst1 = Structure.Obstacle(Center = [200,0], Angle = -45, Size = [80, 40, 60], Type = 'cuboid')
+obst2 = Structure.Obstacle(Center = [150,-50], Angle = 15, Size = [50, 50, 50], Type = 'cuboid')
+ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle1 = obst1,obstacle2 = obst2)
 
-ControlPoint, deltaAngle = Planning.GenControlPoint(obj1=objStart,obj2=objEnd,obst=obst)
-print(ControlPoint)
+#ControlPoint, deltaAngle = Planning.GenControlPoint(obj1=objStart,obj2=objEnd,obst=obst1)
+#print(ControlPoint)
 #ControlPID = Planning.pid()
-#path = Planning.StrightPath(Position1=PositionStart, Position2=PositionEnd)
-path = Planning.BezierPath(PositionStart, PositionEnd, ControlPoint)
+path = Planning.StrightPath(Position1=PositionStart, Position2=PositionEnd)
+#path = Planning.BezierPath(PositionStart, PositionEnd, ControlPoint)
 flag = Planning.CheckPath(path)
 print(path)
 
@@ -69,7 +70,7 @@ if flag:
                 
         #print(Angle)
         uArm = Build_uArm.BuildArm(Angle[0],Angle[1],Angle[2])
-        ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle = obst)
+        ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle1 = obst1,obstacle2 = obst2)
 
 t2 = time.time()
 print(t2-t1)

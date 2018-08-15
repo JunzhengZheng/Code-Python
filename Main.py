@@ -17,6 +17,7 @@ import Planning
 import numpy as np
 import Structure
 import copy
+import matplotlib.pyplot as plt
 
 
 #Swift = ArmSwift.uArmSwift()
@@ -39,8 +40,10 @@ objEnd.Center = PositionEnd[0:2]
 objEnd.H = PositionEnd[2]
 obst1 = Structure.Obstacle(Center = [200,0], Angle = -45, Size = [80, 40, 60], Type = 'cuboid')
 obst2 = Structure.Obstacle(Center = [150,-50], Angle = 15, Size = [50, 50, 50], Type = 'cuboid')
-ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle1 = obst1,obstacle2 = obst2)
 
+ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle1 = obst1,obstacle2 = obst2)
+time.sleep(1)
+plt.close()
 #ControlPoint, deltaAngle = Planning.GenControlPoint(obj1=objStart,obj2=objEnd,obst=obst1)
 #print(ControlPoint)
 #ControlPID = Planning.pid()
@@ -70,8 +73,9 @@ if flag:
                 
         #print(Angle)
         uArm = Build_uArm.BuildArm(Angle[0],Angle[1],Angle[2])
+        
         ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle1 = obst1,obstacle2 = obst2)
-
+        
 t2 = time.time()
 print(t2-t1)
 '''

@@ -3,6 +3,7 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import time
 
 
 plt.rcParams['axes.unicode_minus'] = False
@@ -35,6 +36,7 @@ def plot_opaque_cube(x=10, y=20, z=30, dx=40, dy=50, dz=60):
     # ax.set_xlim3d(-dx, dx*2, 20)
     #plt.title("Cube")
     plt.show()
+    
 
 
 
@@ -122,6 +124,8 @@ def ShowState(Base,Target=None,ShowAxes=True,xlim=[-500,500],ylim=[-500,500],Hei
             
             
     plt.show()
+    #time.sleep(1)
+    plt.close(fig) 
     
     return fig
 

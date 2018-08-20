@@ -44,11 +44,11 @@ obst2 = Structure.Obstacle(Center = [150,-50], Angle = 15, Size = [50, 50, 50], 
 ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle1 = obst1,obstacle2 = obst2)
 time.sleep(1)
 plt.close()
-#ControlPoint, deltaAngle = Planning.GenControlPoint(obj1=objStart,obj2=objEnd,obst=obst1)
+ControlPoint, deltaAngle = Planning.GenControlPoint(obj1=objStart,obj2=objEnd,obst=obst1)
 #print(ControlPoint)
 #ControlPID = Planning.pid()
-path = Planning.StrightPath(Position1=PositionStart, Position2=PositionEnd)
-#path = Planning.BezierPath(PositionStart, PositionEnd, ControlPoint)
+#path = Planning.StrightPath(Position1=PositionStart, Position2=PositionEnd)
+path = Planning.BezierPath(PositionStart, PositionEnd, ControlPoint)
 flag = Planning.CheckPath(path)
 print(path)
 
@@ -76,6 +76,7 @@ if flag:
         
         ShowState(uArm,Target=None,ShowAxes=True,xlim=[-300,300],ylim=[-300,300],Height=300,obstacle1 = obst1,obstacle2 = obst2)
         
+
 t2 = time.time()
 print(t2-t1)
 '''
